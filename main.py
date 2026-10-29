@@ -77,7 +77,7 @@ def turn(req: GameRequest):
         "generationConfig": {"temperature": 0.9, "maxOutputTokens": 700}
     }
     
-        try:
+    try:
         print(f"正在请求 Gemini，模型：{model}", flush=True)
 
         response = requests.post(
