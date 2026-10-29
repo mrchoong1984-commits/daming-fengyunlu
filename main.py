@@ -77,7 +77,7 @@ def turn(req: GameRequest):
         "generationConfig": {"temperature": 0.9, "maxOutputTokens": 700}
     }
     
-    try:
+        try:
         print(f"正在请求 Gemini，模型：{model}", flush=True)
 
         response = requests.post(
@@ -99,8 +99,6 @@ def turn(req: GameRequest):
             detail=f"无法连接 Gemini 服务：{exc.__class__.__name__}",
         )
 
-    except requests.RequestException as exc:
-        raise HTTPException(status_code=502, detail=f"无法连接 Gemini 服务：{exc.__class__.__name__}")
     if not response.ok:
         # 不向玩家返回密钥或请求头等敏感信息。
         message = "Gemini API 请求失败，请检查模型名称、API 密钥和 Google AI Studio 的额度/权限。"
