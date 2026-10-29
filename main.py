@@ -77,12 +77,19 @@ def turn(req: GameRequest):
         "generationConfig": {"temperature": 0.9, "maxOutputTokens": 700}
     }
     try:
-        response = requests.post(
-            url,
-            headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
-            json=payload,
-            timeout=90,
-        )
+        print(f"正在请求 Gemini，模型：{model}", flush=True)
+
+response = requests.post(
+    url,
+    headers={
+        "x-goog-api-key": api_key,
+        "Content-Type": "application/json",
+    },
+    json=payload,
+    timeout=(10, 90),
+)
+
+print(f"Gemini 返回状态码：{response.status_code}", flush=True)
     except requests.RequestException as exc:
         raise HTTPException(status_code=502, detail=f"无法连接 Gemini 服务：{exc.__class__.__name__}")
     if not response.ok:
